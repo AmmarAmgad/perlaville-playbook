@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/assets";
+
 export type Category = "Hair Products" | "Body Products";
 
 export type Product = {
@@ -29,7 +31,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "220 ml",
     form: "Liquid Tonic",
-    image: "/images/hair-tonic.png",
+    image: assetPath("/images/hair-tonic.png"),
     alt: "Perlaville Hair Tonic — 220 ml liquid tonic bottle",
     description:
       "A daily scalp tonic that helps support the scalp and promotes the look of stronger, healthier hair with regular use.",
@@ -52,7 +54,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "5 × 10 ml",
     form: "Ampoules",
-    image: "/images/hair-tonic-vials.png",
+    image: assetPath("/images/hair-tonic-vials.png"),
     alt: "Perlaville Hair Tonic Vials — set of five 10 ml ampoules",
     description:
       "Concentrated ampoules that support the hair roots and enhance the appearance of density within a regular care programme.",
@@ -75,7 +77,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "60 ml",
     form: "Liquid",
-    image: "/images/hair-serum.png",
+    image: assetPath("/images/hair-serum.png"),
     alt: "Perlaville Hair Serum — 60 ml bottle",
     description:
       "A finishing serum that adds instant shine, nourishes the hair and helps protect it from breakage.",
@@ -97,7 +99,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "220 ml",
     form: "Viscous Liquid",
-    image: "/images/anti-dandruff-shampoo.png",
+    image: assetPath("/images/anti-dandruff-shampoo.png"),
     alt: "Perlaville Anti-Dandruff Shampoo — 220 ml bottle",
     description:
       "A clarifying shampoo that helps reduce the visible appearance of flakes and cleanses the scalp of build-up.",
@@ -120,7 +122,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "220 ml",
     form: "Viscous Liquid",
-    image: "/images/sulfate-free-shampoo.png",
+    image: assetPath("/images/sulfate-free-shampoo.png"),
     alt: "Perlaville Sulfate-Free Shampoo — 220 ml bottle",
     description:
       "A gentle, sulfate-free shampoo that helps preserve the colour of dyed hair while keeping it soft and nourished.",
@@ -142,7 +144,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "220 ml",
     form: "Viscous Liquid",
-    image: "/images/hair-conditioner.png",
+    image: assetPath("/images/hair-conditioner.png"),
     alt: "Perlaville Hair Conditioner — 220 ml bottle",
     description:
       "A moisturising conditioner that helps rebalance the scalp, softens the hair and makes it easier to detangle.",
@@ -161,7 +163,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "200 g",
     form: "Semi-Solid",
-    image: "/images/hair-cream.png",
+    image: assetPath("/images/hair-cream.png"),
     alt: "Perlaville Hair Cream — 200 g jar",
     description:
       "A rich care cream that nourishes the scalp and promotes the look of healthy hair with regular use.",
@@ -184,7 +186,7 @@ export const products: Product[] = [
     category: "Hair Products",
     size: "200 g",
     form: "Semi-Solid",
-    image: "/images/hair-mask.png",
+    image: assetPath("/images/hair-mask.png"),
     alt: "Perlaville Hair Mask — 200 g jar",
     description:
       "An intensive mask that deeply nourishes the hair and supports the look of strength from root to tip.",
@@ -207,7 +209,7 @@ export const products: Product[] = [
     category: "Body Products",
     size: "220 ml",
     form: "Gel Cleanser",
-    image: "/images/oily-skin-cleanser.png",
+    image: assetPath("/images/oily-skin-cleanser.png"),
     alt: "Perlaville Oily Skin Cleanser — 220 ml gel cleanser bottle",
     description:
       "A gel cleanser for oily skin that helps reduce excess oil and improves the look of pores with regular use.",
@@ -230,7 +232,7 @@ export const products: Product[] = [
     category: "Body Products",
     size: "220 ml",
     form: "Body Lotion",
-    image: "/images/body-lotion.png",
+    image: assetPath("/images/body-lotion.png"),
     alt: "Perlaville Body Lotion with 10% urea — 220 ml bottle",
     description:
       "An intensive body moisturiser that deeply hydrates dry skin and helps smooth the feel of rough, dry areas with regular use.",

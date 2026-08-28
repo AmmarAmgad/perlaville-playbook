@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "@/lib/assets";
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="container-page flex flex-col items-center gap-8 py-16 text-center">
         <div className="relative h-24 w-48 overflow-hidden rounded-[4px] sm:h-28 sm:w-56">
           <Image
-            src="/images/perlaville-logo.png"
+            src={assetPath("/images/perlaville-logo.png")}
             alt="Perlaville — Premium Daily Care"
             fill
             sizes="224px"

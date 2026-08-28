@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { assetPath } from "@/lib/assets";
 
 export default function Header() {
   return (
@@ -11,7 +12,7 @@ export default function Header() {
           className="relative block h-11 w-[88px] overflow-hidden rounded-[4px] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03] sm:h-12 sm:w-24"
         >
           <Image
-            src="/images/perlaville-logo-dark.png"
+            src={assetPath("/images/perlaville-logo-dark.png")}
             alt="Perlaville — Premium Daily Care"
             fill
             sizes="96px"
