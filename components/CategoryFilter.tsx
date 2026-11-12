@@ -30,7 +30,7 @@ export default function CategoryFilter<T extends string>({
             type="button"
             onClick={() => onChange(category)}
             aria-pressed={isActive}
-            className="relative rounded-full border border-line bg-white/45 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 hover:border-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="relative rounded-full border border-line bg-paper/45 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300 hover:border-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             {isActive && (
               <motion.span

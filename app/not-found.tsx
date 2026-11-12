@@ -12,7 +12,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="group mt-9 inline-flex items-center gap-2.5 rounded-full border border-line bg-white/50 px-6 py-3 text-[11px] font-medium uppercase tracking-[0.22em] text-bark transition-all duration-300 hover:border-gold/40 hover:text-cocoa"
+        className="group mt-9 inline-flex items-center gap-2.5 rounded-full border border-line bg-paper/50 px-6 py-3 text-[11px] font-medium uppercase tracking-[0.22em] text-bark transition-all duration-300 hover:border-gold/40 hover:text-cocoa"
       >
         <span
           aria-hidden="true"

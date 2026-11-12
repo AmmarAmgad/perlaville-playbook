@@ -1,6 +1,9 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import type { Product } from "@/data/products";
 import Reveal from "@/components/Reveal";
+import StaggerList from "@/components/StaggerList";
+import InternalNotes from "@/components/InternalNotes";
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -15,12 +18,12 @@ export default function ProductDetails({ product }: { product: Product }) {
   return (
     <article className="container-page pb-10 pt-4 sm:pt-6">
       <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20">
-        <Reveal className="lg:sticky lg:top-10" y={18}>
+        <Reveal className="lg:sticky lg:top-24" y={18}>
           <figure>
-            <div className="relative aspect-square overflow-hidden rounded-lg border border-line bg-gradient-to-br from-parchment via-[#f3edE1] to-linen/80 sm:aspect-[4/5]">
+            <div className="relative aspect-square overflow-hidden rounded-lg border border-line bg-gradient-to-br from-parchment via-mist to-linen/80 sm:aspect-[4/5]">
               <div
                 aria-hidden="true"
-                className="absolute inset-x-16 top-12 h-32 rounded-full bg-white/40 blur-3xl"
+                className="absolute inset-x-16 top-12 h-32 rounded-full bg-glow/40 blur-3xl"
               />
               <Image
                 src={product.image}
@@ -62,81 +65,37 @@ export default function ProductDetails({ product }: { product: Product }) {
           <Reveal className="mt-12" y={18}>
             <section aria-label="Key ingredients">
               <SectionLabel>Key Ingredients</SectionLabel>
-              <ul className="mt-5 flex flex-wrap gap-2.5">
-                {product.ingredients.map((ingredient) => (
-                  <li
-                    key={ingredient}
-                    className="rounded-full border border-line bg-white/55 px-4 py-2 text-[13px] tracking-wide text-espresso shadow-[0_1px_4px_-2px_rgba(36,26,16,0.12)]"
-                  >
-                    {ingredient}
-                  </li>
-                ))}
-              </ul>
+              <StaggerList
+                className="mt-5 flex flex-wrap gap-2.5"
+                itemClassName="rounded-full border border-line bg-paper/55 px-4 py-2 text-[13px] tracking-wide text-espresso shadow-[0_1px_4px_-2px_rgba(36,26,16,0.12)] transition-colors duration-300 hover:border-gold/50 hover:bg-paper/80"
+                items={product.ingredients}
+              />
             </section>
           </Reveal>
 
           <Reveal className="mt-12" y={18}>
             <section aria-label="Benefits and product details">
               <SectionLabel>Benefits &amp; Product Details</SectionLabel>
-              <ul className="mt-6 space-y-4">
-                {product.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-baseline gap-4">
+              <StaggerList
+                className="mt-6 space-y-4"
+                itemClassName="flex items-baseline gap-4"
+                x={-14}
+                y={0}
+                items={product.benefits.map((benefit) => (
+                  <Fragment key={benefit}>
                     <span
                       aria-hidden="true"
                       className="mt-[1px] h-px w-5 shrink-0 translate-y-[-4px] bg-gold/70"
                     />
                     <span className="leading-relaxed text-bark">{benefit}</span>
-                  </li>
+                  </Fragment>
                 ))}
-              </ul>
+              />
             </section>
           </Reveal>
 
           <Reveal className="mt-14" y={18}>
-            <details className="group border-t border-line pt-7">
-              <summary className="flex cursor-pointer select-none items-center justify-between gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
-                <span className="eyebrow text-bark/70 transition-colors duration-300 group-hover:text-cocoa">
-                  Internal Notes
-                </span>
-                <span className="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-bark/45">
-                  Internal only
-                  <svg
-                    aria-hidden="true"
-                    width="12"
-                    height="8"
-                    viewBox="0 0 12 8"
-                    fill="none"
-                    className="transition-transform duration-300 group-open:rotate-180"
-                  >
-                    <path
-                      d="M1 1.5L6 6.5L11 1.5"
-                      stroke="currentColor"
-                      strokeWidth="1.3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-              </summary>
-              <div className="mt-6 rounded-lg border border-gold/25 bg-parchment/60 p-5 sm:p-6">
-                <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
-                  Internal Perlaville information — not customer-facing
-                </p>
-                <ul className="mt-4 space-y-3.5">
-                  {product.internalNotes.map((note) => (
-                    <li key={note} className="flex gap-3.5">
-                      <span
-                        aria-hidden="true"
-                        className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-gold/70"
-                      />
-                      <span className="text-[13.5px] leading-relaxed text-bark">
-                        {note}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </details>
+            <InternalNotes notes={product.internalNotes} />
           </Reveal>
         </div>
       </div>

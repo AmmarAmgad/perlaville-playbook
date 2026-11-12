@@ -259,3 +259,14 @@ export const categories: readonly ["All Products", "Hair Products", "Body Produc
 export function getProduct(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
+
+/** Distinct key ingredients, in first-seen order ("Vitamin E (Tocopherol)" counts as "Vitamin E"). */
+export function uniqueIngredients(list: Product[] = products): string[] {
+  const seen = new Set<string>();
+  for (const product of list) {
+    for (const ingredient of product.ingredients) {
+      seen.add(ingredient.replace(/\s*\(.*\)$/, ""));
+    }
+  }
+  return [...seen];
+}

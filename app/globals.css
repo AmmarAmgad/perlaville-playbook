@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--font-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
@@ -15,7 +17,56 @@
   --color-cocoa: #5b321f;
   --color-espresso: #241a10;
 
+  /* Surfaces that follow the theme */
+  --color-card: #fbf8f2;
+  --color-mist: #f2ecdf;
+  --color-paper: #ffffff;
+  --color-glow: #ffffff;
+
+  /* Fixed tones for always-dark panels (footer, range panel) */
+  --color-ink: #241a10;
+  --color-cream: #f7f3ec;
+
   --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: light;
+  --tint-1: #f1e9da;
+  --tint-2: #f2ecdf;
+  --selection: #e4d5b8;
+  --sheen: rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ivory: #15110c;
+  --color-parchment: #211a12;
+  --color-linen: #2b2219;
+  --color-sand: #4d3e2c;
+  --color-line: #33291e;
+  --color-gold: #c9a865;
+  --color-gold-soft: #d9c08c;
+  --color-bark: #cbbba2;
+  --color-cocoa: #ecdcc0;
+  --color-espresso: #f4ece0;
+
+  --color-card: #1b150f;
+  --color-mist: #251d14;
+  --color-paper: #2a2118;
+  --color-glow: #5a4630;
+
+  --tint-1: #241b12;
+  --tint-2: #1d160f;
+  --selection: #5a4630;
+  --sheen: rgba(255, 232, 196, 0.12);
+}
+
+/* Theme switch: a circle that grows from the toggle button (see ThemeToggle). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @layer base {
@@ -26,8 +77,8 @@
   body {
     background-color: var(--color-ivory);
     background-image:
-      radial-gradient(1100px 520px at 88% -8%, #f1e9da 0%, transparent 62%),
-      radial-gradient(900px 480px at -12% 18%, #f2ecdf 0%, transparent 58%);
+      radial-gradient(1100px 520px at 88% -8%, var(--tint-1) 0%, transparent 62%),
+      radial-gradient(900px 480px at -12% 18%, var(--tint-2) 0%, transparent 58%);
     background-repeat: no-repeat;
     color: var(--color-espresso);
     -webkit-font-smoothing: antialiased;
@@ -35,7 +86,7 @@
   }
 
   ::selection {
-    background: #e4d5b8;
+    background: var(--selection);
     color: var(--color-espresso);
   }
 
@@ -65,6 +116,26 @@
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility marquee-track {
+  animation: marquee 48s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@utility marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
