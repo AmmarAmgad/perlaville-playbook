@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 };
 
 // Runs before first paint so the page never flashes the wrong theme.
-// Saved choice wins; otherwise follow the device setting.
-const themeScript = `(function(){try{var t=localStorage.getItem("perlaville-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})();`;
+// Everyone lands in light mode; dark only if the visitor chose it before.
+const themeScript = `(function(){try{document.documentElement.dataset.theme=localStorage.getItem("perlaville-theme")==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}})();`;
 
 export default function RootLayout({
   children,

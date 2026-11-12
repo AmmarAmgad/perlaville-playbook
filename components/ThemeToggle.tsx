@@ -11,15 +11,6 @@ function currentTheme(): Theme {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
-function savedTheme(): Theme | null {
-  try {
-    const value = localStorage.getItem(STORAGE_KEY);
-    return value === "light" || value === "dark" ? value : null;
-  } catch {
-    return null;
-  }
-}
-
 function saveTheme(theme: Theme) {
   try {
     localStorage.setItem(STORAGE_KEY, theme);
@@ -35,17 +26,6 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setTheme(currentTheme());
-
-    // Follow the device setting live, until the visitor picks a theme themselves.
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (event: MediaQueryListEvent) => {
-      if (savedTheme()) return;
-      const next: Theme = event.matches ? "dark" : "light";
-      document.documentElement.dataset.theme = next;
-      setTheme(next);
-    };
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
   }, []);
 
   const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
