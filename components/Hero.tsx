@@ -14,7 +14,6 @@ import {
 } from "motion/react";
 import { assetPath } from "@/lib/assets";
 
-const easeLuxury = [0.22, 1, 0.36, 1] as const;
 const TITLE = "Perlaville";
 
 type Bottle = {
@@ -106,8 +105,7 @@ function FloatingBottle({
       alt=""
       width={bottle.width}
       height={bottle.height}
-      priority
-      sizes="180px"
+      sizes="184px"
       className="h-auto w-full [filter:drop-shadow(0_26px_26px_rgba(36,26,16,0.2))]"
     />
   );
@@ -125,10 +123,14 @@ function FloatingBottle({
 
   return (
     <motion.div className={`absolute ${bottle.className}`} style={{ x, y }}>
-      <motion.div
-        initial={{ opacity: 0, y: 70, rotate: bottle.rotate * 2.2, scale: 0.92 }}
-        animate={{ opacity: 1, y: 0, rotate: bottle.rotate, scale: 1 }}
-        transition={{ duration: 1.3, delay: bottle.delay, ease: easeLuxury }}
+      <div
+        className="bottle-in"
+        style={
+          {
+            "--r": `${bottle.rotate}deg`,
+            animationDelay: `${bottle.delay}s`,
+          } as React.CSSProperties
+        }
       >
         <motion.div
           animate={{ y: [0, -12, 0], rotate: [0, 1.2, 0] }}
@@ -140,7 +142,7 @@ function FloatingBottle({
         >
           {image}
         </motion.div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -171,14 +173,9 @@ export default function Hero() {
     rawY.set(0);
   };
 
-  const enter = (delay: number) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 22 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: easeLuxury },
-        };
+  const delay = (seconds: number): React.CSSProperties => ({
+    animationDelay: `${seconds}s`,
+  });
 
   return (
     <section
@@ -205,64 +202,52 @@ export default function Hero() {
       </div>
 
       <div className="container-page relative pb-14 pt-12 text-center sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-24">
-        <motion.p {...enter(0)} className="eyebrow text-gold">
+        <p className="eyebrow rise text-gold" style={delay(0)}>
           Internal Product Playbook
-        </motion.p>
+        </p>
 
         <h1
           aria-label={TITLE}
           className="mt-6 font-serif text-6xl font-medium leading-[1.05] tracking-tight text-espresso sm:text-7xl lg:text-8xl"
         >
-          {reduceMotion ? (
-            TITLE
-          ) : (
-            <span
-              aria-hidden="true"
-              className="-mb-[0.14em] inline-flex overflow-hidden px-[0.06em] pb-[0.14em]"
-            >
-              {TITLE.split("").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block"
-                  initial={{ y: "112%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.12 + index * 0.045,
-                    ease: easeLuxury,
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </span>
-          )}
+          <span
+            aria-hidden="true"
+            className="-mb-[0.14em] inline-flex overflow-hidden px-[0.06em] pb-[0.14em]"
+          >
+            {TITLE.split("").map((letter, index) => (
+              <span
+                key={index}
+                className="letter-in inline-block"
+                style={delay(0.12 + index * 0.045)}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
         </h1>
 
-        <motion.div
+        <div
           aria-hidden="true"
-          initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
-          animate={reduceMotion ? undefined : { scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.1, delay: 0.55, ease: easeLuxury }}
-          className="mx-auto mt-7 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent"
+          style={delay(0.55)}
+          className="line-in mx-auto mt-7 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent"
         />
 
-        <motion.p
-          {...enter(0.6)}
-          className="mx-auto mt-7 max-w-md font-serif text-2xl italic leading-snug text-bark sm:text-[1.7rem]"
+        <p
+          style={delay(0.6)}
+          className="rise mx-auto mt-7 max-w-md font-serif text-2xl italic leading-snug text-bark sm:text-[1.7rem]"
         >
           Premium beauty-care product catalogue.
-        </motion.p>
+        </p>
 
-        <motion.p
-          {...enter(0.7)}
-          className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-bark/75 sm:text-[0.95rem]"
+        <p
+          style={delay(0.7)}
+          className="rise mx-auto mt-4 max-w-lg text-sm leading-relaxed text-bark/75 sm:text-[0.95rem]"
         >
           Ten considered formulations across hair and body — the complete
           Perlaville range in one reference.
-        </motion.p>
+        </p>
 
-        <motion.div {...enter(0.82)} className="mt-12">
+        <div className="rise mt-12" style={delay(0.82)}>
           <Link
             href="/#products"
             className="group inline-flex flex-col items-center gap-3 text-[11px] font-medium uppercase tracking-[0.24em] text-bark transition-colors duration-300 hover:text-cocoa"
@@ -275,7 +260,7 @@ export default function Hero() {
               className="block h-4 w-px bg-gold/60 transition-colors duration-300 group-hover:bg-gold"
             />
           </Link>
-        </motion.div>
+        </div>
 
         {/* Bottle line-up — phones and tablets */}
         <div
@@ -283,27 +268,25 @@ export default function Hero() {
           className="mx-auto mt-12 flex max-w-md items-end justify-center gap-[2%] lg:hidden"
         >
           {mobileRow.map((item, index) => (
-            <motion.div
+            <div
               key={item.src}
-              className={item.className}
-              initial={reduceMotion ? false : { opacity: 0, y: 36 }}
-              animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.9,
-                delay: 0.9 + Math.abs(index - 2) * 0.09,
-                ease: easeLuxury,
-              }}
+              className={`rise ${item.className}`}
+              style={
+                {
+                  "--rise-y": "36px",
+                  ...delay(0.9 + Math.abs(index - 2) * 0.09),
+                } as React.CSSProperties
+              }
             >
               <Image
                 src={assetPath(item.src)}
                 alt=""
                 width={item.width}
                 height={item.height}
-                priority
                 sizes="90px"
                 className="h-auto w-full [filter:drop-shadow(0_14px_14px_rgba(36,26,16,0.18))]"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
