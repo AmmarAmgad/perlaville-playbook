@@ -6,3 +6,7 @@ next-env.d.ts
 .DS_Store
 .playwright-mcp
 public/images/opt
+
+# Source artwork and business files kept locally, not published
+/*.png
+/*.xlsx
